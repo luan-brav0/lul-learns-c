@@ -26,8 +26,8 @@ void initializeDog(Dog *d) {
   d->big = isBigBoi == 'y' ? true : false;
 
   int fatigueFactor;
-  d->fatigueFactor = isBigBoi ? 2 : 1;
-  d->sound = isBigBoi ? dogSounds[1] : dogSounds[0];
+  d->fatigueFactor = d->big ? 2 : 1;
+  d->sound = d->big ? dogSounds[1] : dogSounds[0];
   return;
 }
 
