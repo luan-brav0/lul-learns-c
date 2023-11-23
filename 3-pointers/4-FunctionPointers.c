@@ -2,8 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void printArray(int *A, int n) {
-  for (int i = 0; i < n; i++) {
+void printArray(int *A, int Alength) {
+  for (int i = 0; i < Alength; i++) {
     printf("%d ", A[i]);
   }
   printf("\n");
@@ -16,18 +16,15 @@ void swap(int *a, int *b) {
 }
 
 void newtonSort(int *A, int n) {
-  int max = 0;
+  int min = 0;
   for (int i = 0; i < n; i++) {
-    if (i != max && A[i] > A[max]) {
-      max = i;
+    if (i != min && A[i] > A[min]) {
+      min = i;
     }
-    int k = round(((float)A[i]) - (float)A[max] / 2.0) >= 0
-                ? round(((float)A[i]) - (float)A[max] / 2.0)
-                : 0;
+    int k = (int)round(((float)A[min] - (float)A[i]) / 2.0);
 
-    // Check if k is within the bounds of the array
-    if (A[k] > A[max]) {
-      swap(&A[k], &A[max]);
+    if (k >= 0 && k < n && A[k] < A[min]) {
+      swap(&A[k], &A[min]);
     }
   }
 }
