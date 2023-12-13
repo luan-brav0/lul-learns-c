@@ -57,14 +57,10 @@ void push(Node **head_ref) {
     return;
   }
   Node *temp = *head_ref;
-  Node *last_node;
-  while (temp != NULL) {
-    if (temp->next == NULL) {
-      last_node = temp;
-    }
+  while (temp->next != NULL) {
     temp = temp->next;
   }
-  last_node->next = new_node;
+  temp->next = new_node;
   printf("%d pushed\n", new_data);
   printList(head_ref);
 }
