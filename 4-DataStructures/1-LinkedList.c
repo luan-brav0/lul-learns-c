@@ -6,22 +6,26 @@ typedef struct Node {
   struct Node *next;
 } Node;
 
+Node *initNode(int new_data, Node **next_ref) {
+  Node *new_node = (Node *)malloc(sizeof(Node));
+  if (new_node == NULL) {
+    fprintf(stderr, "Memory allocation error\n");
+    exit(1);
+  }
+  new_node->data = new_data;
+  if (next_ref != NULL) {
+    new_node->next = (*next_ref);
+  } else {
+    new_node->next = NULL;
+  }
+  return new_node;
+}
+
 int getData() {
   printf("Enter the new number: ");
   int new_data;
   scanf("%d", &new_data);
   return new_data;
-}
-
-Node *initNode(int new_data, Node **next_ref) {
-  Node *new_node = (Node *)malloc(sizeof(Node));
-  if (new_node == NULL) {
-    fprintf(stderr, "Memory error\n");
-    exit(1);
-  }
-  new_node->data = new_data;
-  new_node->next = (*next_ref);
-  return new_node;
 }
 
 void printList(Node **head_ref) {
@@ -45,20 +49,25 @@ void insert(Node **head_ref) {
 
 void push(Node **head_ref) {
   int new_data = getData();
-  Node *new_node = initNode(new_data, head_ref);
+  Node *new_node = initNode(new_data, NULL);
   if ((*head_ref) == NULL) {
     (*head_ref) = new_node;
     printf("%d pushed\n", new_data);
+    printList(head_ref);
     return;
   }
+  // not checked
   Node *temp = *head_ref;
   Node *last_node;
-  do {
-    temp = temp->next;
+  printf("head: %p temp: %p last_node: %p\n", *head_ref, temp, last_node);
+  while (temp != NULL) {
+    printf("temp not null");
     if (temp->next == NULL) {
       last_node = temp;
+      printf("last_node: %p\n", last_node);
     }
-  } while (temp->next != NULL);
+    temp = temp->next;
+  }
   last_node->next = new_node;
   printf("%d pushed\n", new_data);
   printList(head_ref);
@@ -70,6 +79,11 @@ void insertAtNthPosition(Node **head_ref) {
   int position;
   printf("Enter position: ");
   scanf("%d", &position);
+  if (position < 0) {
+    fprintf(stderr,
+            "Invalid position, please try again with a positive value\n");
+    return;
+  }
   if (position == 1 || (*head_ref) == NULL) {
     new_node->next = *head_ref;
     (*head_ref) = new_node;
@@ -81,7 +95,6 @@ void insertAtNthPosition(Node **head_ref) {
     fprintf(stderr, "Invalid position\n");
     return;
   }
-  // get nth node
   for (int i = 0; i < position - 2 && temp->next != NULL; i++) {
     temp = temp->next;
   }
@@ -90,17 +103,36 @@ void insertAtNthPosition(Node **head_ref) {
   printList(head_ref);
 }
 
+void reverseList(Node **head_ref) {
+  if (*head_ref == NULL || (*head_ref)->next == NULL) {
+    fprintf(stderr, "List is either empty or has only one item\n");
+    return;
+  }
+  Node *current = *head_ref;
+  Node *prev = NULL;
+  Node *next = NULL;
+  while (current != NULL) {
+    next = current->next;
+    current->next = prev;
+    prev = current;
+    current = next;
+  }
+  *head_ref = prev;
+  printList(head_ref);
+}
+
 int main() {
   struct Node *head = NULL;
   printf("List created");
   int op;
-  const int TOTAL_OPERATIONS = 4;
+  const int TOTAL_OPERATIONS = 5;
   do {
     printf("Enter operation:"
            "\n\t[1] - Print"
            "\n\t[2] - Insert"
            "\n\t[3] - Push"
            "\n\t[4] - Insert at Nth position"
+           "\n\t[5] - Reverse list"
            "\n\t[0] - Exit\n");
     scanf("%d", &op);
     if (op < 0 || op > TOTAL_OPERATIONS) {
@@ -120,8 +152,14 @@ int main() {
     case 4:
       insertAtNthPosition(&head);
       break;
+    case 5:
+      reverseList(&head);
+      break;
     case 0:
       printf("Goodbye!\n");
+      break;
+    default:
+      fprintf(stderr, "Invalid operation. Try again\n");
       break;
     }
   } while (op != 0);
