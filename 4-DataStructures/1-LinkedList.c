@@ -56,15 +56,11 @@ void push(Node **head_ref) {
     printList(head_ref);
     return;
   }
-  // not checked
   Node *temp = *head_ref;
   Node *last_node;
-  printf("head: %p temp: %p last_node: %p\n", *head_ref, temp, last_node);
   while (temp != NULL) {
-    printf("temp not null");
     if (temp->next == NULL) {
       last_node = temp;
-      printf("last_node: %p\n", last_node);
     }
     temp = temp->next;
   }
