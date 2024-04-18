@@ -13,10 +13,10 @@ Node *initNode(int new_data, Node **next_ref) {
     exit(1);
   }
   new_node->data = new_data;
-  if (next_ref != NULL) {
-    new_node->next = (*next_ref);
-  } else {
+  if (next_ref == NULL) {
     new_node->next = NULL;
+  } else {
+    new_node->next = (*next_ref);
   }
   return new_node;
 }
@@ -43,14 +43,14 @@ void printList(Node **head_ref) {
 void insert(Node **head_ref) {
   Node *new_node = initNode(getData(), head_ref);
   (*head_ref) = new_node;
-  printf("%d inserted to end of list\n", new_node->data);
+  printf("%d inserted to start of list\n", new_node->data);
 }
 
 void push(Node **head_ref) {
   Node *new_node = initNode(getData(), NULL);
   if ((*head_ref) == NULL) {
     (*head_ref) = new_node;
-    printf("%d pushed to head of list\n", new_node->data);
+    printf("%d pushed to end of list\n", new_node->data);
     printList(head_ref);
     return;
   }
@@ -63,7 +63,6 @@ void push(Node **head_ref) {
 }
 
 void insertAtNthPosition(Node **head_ref) {
-  Node *new_node = initNode(getData(), head_ref);
   int position;
   printf("Enter position: ");
   scanf("%d", &position);
@@ -74,9 +73,7 @@ void insertAtNthPosition(Node **head_ref) {
     return;
   }
   if (position == 1 || (*head_ref) == NULL) {
-    new_node->next = *head_ref;
-    (*head_ref) = new_node;
-    printf("%d inserted at position 1\n", new_node->data);
+    insert(head_ref);
     return;
   }
   Node *prev_node = *head_ref;
@@ -84,10 +81,10 @@ void insertAtNthPosition(Node **head_ref) {
     fprintf(stderr, "Error: Invalid position\n");
     return;
   }
-  for (int i = 0; i < position - 2 && prev_node->next != NULL; i++) {
+  for (int i = 0; i <= position + 2 && prev_node->next != NULL; i++) {
     prev_node = prev_node->next;
   }
-  new_node->next = prev_node->next;
+  Node *new_node = initNode(getData(), prev_node->next);
   prev_node->next = new_node;
 }
 
@@ -130,18 +127,23 @@ void deleteNthItem(Node **head_ref) {
     free(prev_node);
     return;
   }
-  for (int i = 0; i < position - 2 || prev_node->next == NULL; i++) {
+  for (int i = 0; i <= position - 1 || prev_node->next == NULL; i++) {
     if (prev_node->next == NULL) {
-      fprintf(stderr, "Error: Invalid position. Try again\n");
+      fprintf(stderr, "Error: Index larger that list lenth. Try again\n");
       return;
     } else {
       prev_node = prev_node->next;
     }
-  }
 
+  }
   printf("Prev node: %d\n", prev_node->data);
   printf("Deleting %d\n", prev_node->next->data);
   Node *del_node = prev_node->next;
+  if (del_node->next == NULL) {
+    prev_node->next = NULL;
+  } else {
+    prev_node->next = del_node->next;
+  }
   if (del_node->next == NULL) {
     prev_node->next = NULL;
   } else {
