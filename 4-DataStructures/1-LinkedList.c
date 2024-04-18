@@ -41,18 +41,16 @@ void printList(Node **head_ref) {
 }
 
 void insert(Node **head_ref) {
-  int new_data = getData();
-  Node *new_node = initNode(new_data, head_ref);
+  Node *new_node = initNode(getData(), head_ref);
   (*head_ref) = new_node;
-  printf("%d inserted\n", new_data);
+  printf("%d inserted to end of list\n", new_node->data);
 }
 
 void push(Node **head_ref) {
-  int new_data = getData();
-  Node *new_node = initNode(new_data, NULL);
+  Node *new_node = initNode(getData(), NULL);
   if ((*head_ref) == NULL) {
     (*head_ref) = new_node;
-    printf("%d pushed\n", new_data);
+    printf("%d pushed to head of list\n", new_node->data);
     printList(head_ref);
     return;
   }
@@ -61,12 +59,11 @@ void push(Node **head_ref) {
     last_node = last_node->next;
   }
   last_node->next = new_node;
-  printf("%d pushed\n", new_data);
+  printf("%d pushed\n", new_node->data);
 }
 
 void insertAtNthPosition(Node **head_ref) {
-  int new_data = getData();
-  Node *new_node = initNode(new_data, head_ref);
+  Node *new_node = initNode(getData(), head_ref);
   int position;
   printf("Enter position: ");
   scanf("%d", &position);
@@ -79,7 +76,7 @@ void insertAtNthPosition(Node **head_ref) {
   if (position == 1 || (*head_ref) == NULL) {
     new_node->next = *head_ref;
     (*head_ref) = new_node;
-    printf("%d inserted at position 1\n", new_data);
+    printf("%d inserted at position 1\n", new_node->data);
     return;
   }
   Node *prev_node = *head_ref;
