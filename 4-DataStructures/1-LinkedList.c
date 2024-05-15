@@ -134,7 +134,6 @@ void deleteNthItem(Node **head_ref) {
     } else {
       prev_node = prev_node->next;
     }
-
   }
   printf("Prev node: %d\n", prev_node->data);
   printf("Deleting %d\n", prev_node->next->data);
@@ -154,7 +153,7 @@ void deleteNthItem(Node **head_ref) {
 }
 
 int main() {
-  struct Node *head = NULL;
+  Node *head = NULL;
   printf("List created");
   int operation;
   const int TOTAL_OPERATIONS = 6;
