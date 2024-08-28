@@ -6,7 +6,7 @@ int compare(const void *a, const void *b) {
   int A = *((int *)a);
   int B = *((int *)b);
 
-  if (A > B)
+ if (A > B)
     return 1;
   else if (A < B)
     return -1;
