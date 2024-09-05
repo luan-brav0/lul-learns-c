@@ -16,15 +16,11 @@ char* strCpy(char* s, char* t, int n) {
     }
     printf("Attempt to concat:\n%s\nand\n%s\n", s, t);
 
-    for (; *s != '\0'; pTemp++, s++) {
-        printf("%c , %c\n", *pTemp, *s);
+    for (; *s != '\0'; pTemp++, s++)
         *pTemp = *s;
-    }
     char* t0 = t;
-    for (; t != t0+n; pTemp++, t++) {
-        printf("%c , %c\n", *pTemp, *t);
+    for (; t != t0+n; pTemp++, t++)
         *pTemp = *t;
-    }
     return temp;
 }
 
