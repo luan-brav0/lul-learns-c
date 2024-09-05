@@ -3,27 +3,26 @@
 
 int strLen(char* c) {
     int i;
-    for(i=0; c[i] != '\0'; i++)
-    while (*c != '\0')
-        i++, c++;
+    for(i=0; *c != '\0'; i++, c++);
     return i;
 }
 
 char* strCat(char* s, char* t) {
-    // create alocation for s and t's chars + null terminator
     char* temp = (char*)malloc((sizeof(char) * (strLen(s)+strLen(t)))+1);
+    char* pTemp = temp;
     if (temp == NULL) {
         printf("Memory allocation failed.\n");
         return NULL;
     }
-    char* c;
-    size_t i;
     printf("Attempt to concat:\n%s\nand\n%s\n", s, t);
-    for (c = s; *c != '\0'; c++, i++)
-        temp[i] = *c;
-    // starts adding str t where str s ended
-    for (c = t; *c != '\0'; c++, i++)
-        temp[i] = *c;
+    for (; *s != '\0'; pTemp++, s++) {
+        printf("%c , %c\n", *pTemp, *s);
+        *pTemp = *s;
+    }
+    for (; *t != '\0'; pTemp++, t++) {
+        printf("%c , %c\n", *pTemp, *t);
+        *pTemp = *t;
+    }
     return temp;
 }
 
@@ -33,7 +32,7 @@ int main() {
     char* t = " concatenation!";
     char* result = strCat(s, t);
     if (result != NULL)
-        printf("%s", result);
+        printf("%s\n", result);
     free(result);
     return 0;
     }
