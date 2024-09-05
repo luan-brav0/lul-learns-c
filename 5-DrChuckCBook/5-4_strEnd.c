@@ -11,12 +11,12 @@ int strLen(char* c) {
 // check if string s ends with string t
 int strEnd(char* s, char* t, int sLen, int tLen) {
     if (s == NULL || t == NULL) {
-        printf("Error: strEnd recived at least one null pointer");
+        printf("Error: strEnd recived at least one null pointer\n");
         return 0;
     }
     if (tLen > sLen) {
-        printf("Error trying to check for bigger string inside of another smaller string");
-        printf("Swapping S with T and sLen with tLen ");
+        printf(" WARNING: trying to check for bigger string inside of another smaller string\n");
+        printf("Swapping S with T and sLen with tLen\n");
         // swap vars with temp variable so not to have to import all of <stdint.h>
         char* temp = s;
         s = t;
@@ -46,33 +46,27 @@ int strEnd(char* s, char* t, int sLen, int tLen) {
     */
 
     // initiate c
-    int result;
-    char* c = s[(sLen - tLen)]
-    size_t i;
+    size_t i = sLen - tLen;
     printf("Checking if S ends in with T:\n%s\nand\n%s\n", s, t);
-    for (c = s; *c != '\0'; c++, i++)
-        temp[i] = *c;
-    // starts adding str t where str s ended
-    for (c = t; *c != '\0'; c++, i++)
-        temp[i] = *c;
-    return temp;
+    for (int j=0; i <= sLen+1; i++, j++)
+        if (s[i] != t[j])
+           return 1;
+    return 0;
 }
 
 int main() {
-    // strcat(s,t) -> "s"+"t"
     char* s = "String";
     char* t = "ing";
     char* r = "ion";
     int sLen = strLen(s);
     int tLen = strLen(t);
     int rLen = strLen(r);
-    char* result = strEnd(s, t, sLen, tLen);
-    if (result != NULL)
-        printf("%s", result);
-    char* result = strEnd(s, r, sLen, rLen);
-    if (result != NULL)
-        printf("%s", result);
-    free(result);
+    int result = strEnd(s, t, sLen, tLen);
+    printf("RESULT: %d\n", result);
+    result = strEnd(s, r, sLen, rLen);
+    printf("RESULT: %d\n", result);
+    result = strEnd(r, s, rLen, sLen);
+    printf("RESULT: %d\n", result);
     return 0;
     }
 
