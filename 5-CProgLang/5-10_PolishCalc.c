@@ -1,3 +1,8 @@
+/* The C programming language
+ * Chapter 5: Pointer and Arrays
+ * Exercise 5-10, page 118
+ * (reverse polish notation calculator)
+ * done by luan-brav0*/
 #include <stdio.h>
 #include <stdlib.h>
 
