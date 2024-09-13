@@ -1,3 +1,4 @@
+// TO BE FINISHED
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -5,7 +6,7 @@
 
 #define ARR_SIZE 5
 
-void swap(void** array, int a, int b) {
+void swap(void* array[], int a, int b) {
     printf("\tswap\n");
     void* temp = array[a];
     array[a] = array[b];
@@ -26,13 +27,14 @@ int compareNumbers(void* arr[], int a, int b) {
     return ((int*)arr[a] > (int*)arr[b]) - ((int*)arr[a] < (int*)arr[b]);
 }
 
-void quickSort(void** array, int left, int right, int (*compare)(void*, void*)) {
+void quickSort(void* array[], int left, int right, int (*compare)(void*, void*)) {
     // for(int i = 0; i<5 && printf("%d: %d\n", i, (int*)array[i]); i++);
     printNumberArray((int*)array);
     int iterator=0, last=0;
     //printf("left: %d right %d iter %d last %d\n", (int*)array[left], (int*)array[right], (int*)array[iterator], (int*)array[last]);
+    // base case
     if (left >= right)
-        return; // base case
+        return;
     swap(array, left, (left+right)/2); // set pivot to middle of array by swaping left nth item to middle
     // TODO: median of three:
     // // look at first, middle and last items, set them in order (smaller = first, biggest = last, mid = middle)
