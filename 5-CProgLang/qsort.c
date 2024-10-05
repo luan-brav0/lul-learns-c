@@ -19,12 +19,8 @@ void printNumberArray(int* array) {
     printf("\n");
     return;
 }
-int compareNumbers(void* arr[], int a, int b) {
-    printf("here\n");
-    printf("\tcomp result: %d\n", ((int*)arr[a] > (int*)arr[b]) - ((int*)arr[a] < (int*)arr[b]));
-    printf("\tcomp : %d %d\n", (int*)arr[a] , (int*)arr[b]);
-    // casting void pointers to int pointers and dereferencing for comparison
-    return ((int*)arr[a] > (int*)arr[b]) - ((int*)arr[a] < (int*)arr[b]);
+int compareNumbers(int* a , int* b) {
+    return (*a > *b) - (*a < *b);
 }
 
 void quickSort(void* array[], int left, int right, int (*compare)(void*, void*)) {
@@ -41,9 +37,9 @@ void quickSort(void* array[], int left, int right, int (*compare)(void*, void*))
 
     last = left;
     printf("TOFIX: crashing after comparing here\n");
-    printf("%d\n", (*compare)(array, iterator, left));
+    printf("%d\n", (*compare)(array, &left));
     for (iterator=left+1; iterator <= right; iterator++)
-        if (((*compare)(array, iterator, left)) < 0){
+        if (((*compare)(array, &left)) < 0){
             swap(array, last++, iterator);
         }
     swap(array, left, last);
