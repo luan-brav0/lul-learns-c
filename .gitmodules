@@ -4,3 +4,6 @@
 [submodule "learn-c-the-hard-way-lectures"]
 	path = learn-c-the-hard-way-lectures
 	url = https://www.github.com/luan-brav0/learn-c-the-hard-way-lectures
+[submodule "GameOfLife-CLI"]
+	path = GameOfLife-CLI
+	url = https://github.com/luan-brav0/GameOfLife-CLI
